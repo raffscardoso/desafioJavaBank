@@ -2,24 +2,24 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String nome = "Rafael Cardoso";
-        String tipoConta = "Corrente ";
-        double saldo = 2500.00;
+
+        Conta user = new Conta("Rafael Cardoso", "Corrente", 2500.00);
+
         String mensagem = String.format("""
                           ************************************************
                           Dados Iniciais do cliente:
-                          
-                          Nome: %s 
-                          Tipo conta: %s 
-                          Saldo Inicial: %.2f 
+                         \s
+                          Nome: %s\s
+                          Tipo conta: %s\s
+                          Saldo Inicial: %.2f\s
                           ************************************************
-                          """, nome, tipoConta, saldo);
+                         \s""", user.nome, user.tipoConta, user.saldo);
         System.out.println(mensagem);
-        bank(saldo);
+        bank(user);
 
     }
 
-    public static void bank(double saldo) {
+    public static void bank(Conta user) {
         Scanner leitor = new Scanner(System.in);
         String operacoesMensagem = """
                                    Operacoes
@@ -37,38 +37,37 @@ public class Main {
 
         switch (opcaoUser){
             case 1:
-                System.out.println("O seu saldo atual e de R$ " + saldo);
-                bank(saldo);
+                System.out.println("O seu saldo atual e de R$ " + user.saldo);
+                bank(user);
                 return;
             case 2:
                 System.out.println("Qual valor deseja receber?");
-                double valorUser = leitor.nextDouble();
-                if (valorUser < 0){
+                double valorUserCase2 = leitor.nextDouble();
+                if (valorUserCase2 < 0){
                     System.out.println("Valor Invalido!");
-                    bank(saldo);
+                    bank(user);
                     return;
                 }
-                saldo += valorUser;
-                bank(saldo);
+                user.saldo += valorUserCase2;
+                bank(user);
                 return;
             case 3:
                 System.out.println("Qual valor deseja transferir?");
-                valorUser = leitor.nextDouble();
-                if (valorUser > saldo) {
+                double valorUserCase3 = leitor.nextDouble();
+                if (valorUserCase3 > user.saldo) {
                     System.out.println("Saldo insuficiente!");
-                    bank(saldo);
+                    bank(user);
                     return;
                 }
-                saldo -= valorUser;
-                bank(saldo);
+                user.saldo -= valorUserCase3;
+                bank(user);
                 return;
             case 4:
                 System.out.println("Atendimento Finalizado!");
                 return;
             default:
                 System.out.println("Insira uma opcao valida!");
-                bank(saldo);
-                return;
+                bank(user);
         }
     }
 }
