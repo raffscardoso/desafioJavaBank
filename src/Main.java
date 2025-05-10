@@ -34,32 +34,31 @@ public class Main {
                                    """;
         System.out.println(operacoesMensagem);
         int opcaoUser = leitor.nextInt();
+        double valorUser;
 
         switch (opcaoUser){
             case 1:
-                System.out.println("O seu saldo atual e de R$ " + user.saldo);
+                user.exibirSaldo();
                 bank(user);
                 return;
             case 2:
-                System.out.println("Qual valor deseja receber?");
-                double valorUserCase2 = leitor.nextDouble();
-                if (valorUserCase2 < 0){
+                valorUser = user.receberSaldo();
+                if (valorUser< 0){
                     System.out.println("Valor Invalido!");
                     bank(user);
                     return;
                 }
-                user.saldo += valorUserCase2;
+                user.atualizaSaldo(valorUser, 2);
                 bank(user);
                 return;
             case 3:
-                System.out.println("Qual valor deseja transferir?");
-                double valorUserCase3 = leitor.nextDouble();
-                if (valorUserCase3 > user.saldo) {
+                valorUser= user.transferirSaldo();
+                if (valorUser> user.saldo) {
                     System.out.println("Saldo insuficiente!");
                     bank(user);
                     return;
                 }
-                user.saldo -= valorUserCase3;
+                user.atualizaSaldo(valorUser, 3);
                 bank(user);
                 return;
             case 4:
